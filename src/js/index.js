@@ -95,6 +95,8 @@ document.addEventListener("mouseup",(e)=>{
         }
 
 })
+
+
 document.addEventListener("mousemove",(e)=>{
 //    if(e.target.className == "slider"){
     if(state.verticalSlider){

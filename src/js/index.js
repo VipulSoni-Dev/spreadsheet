@@ -70,14 +70,11 @@ window.scrollLeft=(e)=>{
         clearInterval(state.hScroller)
     } 
 }
-
+// console.log("");
 window.addEventListener("wheel",e=>{   
 
     sc.handleOnWheelEvent(e)
 })
-
-
-
 
 
 //for scroll slidding

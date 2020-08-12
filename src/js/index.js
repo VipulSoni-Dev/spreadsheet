@@ -76,7 +76,6 @@ window.addEventListener("wheel",e=>{
     sc.handleOnWheelEvent(e)
 })
 
-
 //for scroll slidding
 document.addEventListener("mouseup",(e)=>{
     // if(e.target.className == "slider"){

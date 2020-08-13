@@ -70,11 +70,12 @@ window.scrollLeft=(e)=>{
         clearInterval(state.hScroller)
     } 
 }
-
+//scrolling by mouse wheel event.
 window.addEventListener("wheel",e=>{   
 
     sc.handleOnWheelEvent(e)
 })
+
 
 //for scroll slidding
 document.addEventListener("mouseup",(e)=>{

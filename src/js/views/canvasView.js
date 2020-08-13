@@ -118,8 +118,6 @@ const renderGridCol =(start,end,row,xOff = xOffset,yOff = yOffset,isHeader=false
     }
 }
 
-
-
 export const drawGrid = () => {
     
     save()

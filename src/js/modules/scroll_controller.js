@@ -187,7 +187,7 @@ export default class ScrollController {
         //finding current row by
         //how many percentage 
         //slider moved
-        state.currentRow = Math.floor((state.percentage * state.row) / 100)
+        state.currentRow = Math.ceil((state.percentage * state.row) / 100)
         state.toRow = state.currentRow + state.rowPerScreen
         slider.style.top = state.percentage + "%" //getRowPercentage() + "%" 
        
@@ -213,7 +213,7 @@ export default class ScrollController {
         //finding current row by
         //how many percentage 
         //slider moved
-        state.currentCol = Math.floor((state.hPercentage * state.col) / 100)
+        state.currentCol = Math.ceil((state.hPercentage * state.col) / 100)
         state.toCol = state.currentCol + state.colPerScreen
         sliderHorizontal.style.left =state.hPercentage + "%" 
 

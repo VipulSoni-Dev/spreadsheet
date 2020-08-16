@@ -17,7 +17,7 @@ import { drawGridEnd } from './views/canvasView'
 
 //starting spreadsheet
 
-const workbook = new Spreadsheet("workbook", [new sheet("sheet1", 99, 26)])
+const workbook = new Spreadsheet("workbook", [new sheet("sheet1", 100, 26)])
 state.ctx = workbook.load(0)
 
 //adding scrollbars

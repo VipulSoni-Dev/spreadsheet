@@ -9,9 +9,7 @@ export default class Row{
 
     getY(row){
         
-
-            return npx(row * CELLHEIGHT)+21
-        
+            return npx(row * CELLHEIGHT)+21        
     }
 
 

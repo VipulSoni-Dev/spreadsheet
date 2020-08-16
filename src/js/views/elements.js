@@ -10,7 +10,7 @@ export const input = document.querySelector("#input")
 export const mainContainer = document.querySelector(".mainContainer")
 export const loading = document.querySelector(".loading")
 export const createNewDiv = document.createElement("div")
-
+// export const create = document.createElement("div")
 export const screenWidth = document.documentElement.clientWidth
 export const screenHeight = document.documentElement.clientHeight
 export const ctx = canvasDom.getContext("2d")
@@ -36,5 +36,6 @@ state.activeCellHeight = ACTIVE_CELL_HEIGHT
 state.activeCellRow = 1
 state.activeCellCol = 1
 
+state.enteredInCell = false
 
 state.tmp = 0

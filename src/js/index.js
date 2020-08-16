@@ -37,59 +37,91 @@ window.addEventListener("resize", (e) => {
 
 //keyboard navigation
 window.addEventListener("keydown", (e) => {
-   e.preventDefault()
+    e.preventDefault()
+    //    state.enteredInCell = false
     //default initializations
-    if(e.key == "ArrowDown"){
-        if(state.activeCellRow < state.rowPerScreen)
-        {
-            state.activeCellRow +=1
-        }else if(state.toRow < state.row){
+    if(e.key == "r" && e.ctrlKey || e.key == "F5"){
+        document.location.reload()
+    }else if (e.key == "ArrowDown") {
+        state.enteredInCell = false
+        if (state.activeCellRow < state.rowPerScreen) {
+            state.activeCellRow += 1
+        } else if (state.toRow < state.row) {
             state.currentRow += 1
             state.toRow += 1
         }
-       
-    }else if(e.key == "ArrowUp"){
-        if(state.activeCellRow != 1){
-            state.activeCellRow -=1
-        }else if(state.currentRow != 0){
-            state.currentRow -=1
-            state.toRow -=1
+
+    } else if (e.key == "ArrowUp") {
+        state.enteredInCell = false
+        if (state.activeCellRow != 1) {
+            state.activeCellRow -= 1
+        } else if (state.currentRow != 0) {
+            state.currentRow -= 1
+            state.toRow -= 1
         }
-    }else if(e.key == "ArrowRight"){
+    } else if (e.key == "ArrowRight") {
+        state.enteredInCell = false
         state.hMove = true //hmove is required for horizontal movement
-        if(state.activeCellCol<state.colPerScreen){
-            state.activeCellCol +=1
-        }else if(state.toCol<state.col){
+        if (state.activeCellCol < state.colPerScreen) {
+            state.activeCellCol += 1
+        } else if (state.toCol < state.col) {
             state.currentCol += 1
             state.toCol += 1
         }
-    }else if(e.key == "ArrowLeft"){
+    } else if (e.key == "ArrowLeft") {
+        state.enteredInCell = false
         state.hMove = true
-        if(state.activeCellCol != 1){
+        if (state.activeCellCol != 1) {
             state.activeCellCol -= 1
-        }else if(state.currentCol != 0){
+        } else if (state.currentCol != 0) {
             state.currentCol -= 1
             state.toCol -= 1
         }
-    }else if(e.key == "Tab" && e.shiftKey)
-    {
+    } else if (e.key == "Tab" && e.shiftKey) {
+        state.enteredInCell = false
         state.hMove = true
-        if(state.activeCellCol != 1){
+        if (state.activeCellCol != 1) {
             state.activeCellCol -= 1
-        }else if(state.currentCol != 0){
+        } else if (state.currentCol != 0) {
             state.currentCol -= 1
             state.toCol -= 1
         }
-    }else if(e.key == "Tab"){
+    } else if (e.key == "Tab") {
+        state.enteredInCell = false
         state.hMove = true
-        if(state.activeCellCol<state.colPerScreen){
-            state.activeCellCol +=1
-        }else if(state.toCol<state.col){
+        if (state.activeCellCol < state.colPerScreen) {
+            state.activeCellCol += 1
+        } else if (state.toCol < state.col) {
             state.currentCol += 1
             state.toCol += 1
+        }
+    } else if (e.key == "Enter" && e.shiftKey) {
+        if (!state.enteredInCell) {
+            state.enteredInCell = true
+        } else {
+            if (state.activeCellRow != 1) {
+                state.activeCellRow -= 1
+            } else if (state.currentRow != 0) {
+                state.currentRow -= 1
+                state.toRow -= 1
+            }
+        }
+
+    } else if (e.key == "Enter") {
+        if (!state.enteredInCell) {
+            state.enteredInCell = true
+        } else {
+            if (state.activeCellRow < state.rowPerScreen) {
+                state.activeCellRow += 1
+            } else if (state.toRow < state.row) {
+                state.currentRow += 1
+                state.toRow += 1
+            }
         }
     }
 
+
+    console.log(e);
     removeMaskView()
     addMaskViewToPage()
     sc.moveScrollBar()

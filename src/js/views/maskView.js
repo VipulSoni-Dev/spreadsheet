@@ -33,11 +33,12 @@ const createHighlightedCellDiv=()=>{
     document.querySelector(".maskContainer").insertAdjacentElement("beforeend",highlightedCell)
 }
 
-
+const createInputBox=()=>{
+    
+}
 export const addMaskViewToPage=()=>{
     createMaskDiv()
     createHighlightedCellDiv()
-    
     
 }
 

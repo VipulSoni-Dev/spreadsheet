@@ -37,6 +37,7 @@ window.addEventListener("resize", (e) => {
 
 //keyboard navigation
 window.addEventListener("keydown", (e) => {
+   e.preventDefault()
     //default initializations
     if(e.key == "ArrowDown"){
         if(state.activeCellRow < state.rowPerScreen)
@@ -55,7 +56,7 @@ window.addEventListener("keydown", (e) => {
             state.toRow -=1
         }
     }else if(e.key == "ArrowRight"){
-        state.hMove = true
+        state.hMove = true //hmove is required for horizontal movement
         if(state.activeCellCol<state.colPerScreen){
             state.activeCellCol +=1
         }else if(state.toCol<state.col){
@@ -70,8 +71,24 @@ window.addEventListener("keydown", (e) => {
             state.currentCol -= 1
             state.toCol -= 1
         }
+    }else if(e.key == "Tab" && e.shiftKey)
+    {
+        state.hMove = true
+        if(state.activeCellCol != 1){
+            state.activeCellCol -= 1
+        }else if(state.currentCol != 0){
+            state.currentCol -= 1
+            state.toCol -= 1
+        }
+    }else if(e.key == "Tab"){
+        state.hMove = true
+        if(state.activeCellCol<state.colPerScreen){
+            state.activeCellCol +=1
+        }else if(state.toCol<state.col){
+            state.currentCol += 1
+            state.toCol += 1
+        }
     }
-
 
     removeMaskView()
     addMaskViewToPage()

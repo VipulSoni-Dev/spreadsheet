@@ -24,7 +24,7 @@ function createScrollBars(){
     slider.setAttribute("onmousedown","window.vScroll(event)")
     //slider 
     if(sc.getScrollSliderHeight()>= 100){
-        slider.setAttribute("style",`height:${sc.getScrollSliderHeight()}%;`)
+        myscrollBar.setAttribute("style",`display:none`)
     }else{
         slider.setAttribute("style",`height:${sc.getScrollSliderHeight()}%;`)
     }   
@@ -63,7 +63,7 @@ function createScrollBars(){
 
    //setting width of slider according to col's count of sheet
     if(sc.getScrollSliderWidth()>=100){
-        slider_Horizontal.setAttribute("style",`width:${sc.getScrollSliderWidth()-11}%`)
+        myHorizontalScrollbar.setAttribute("style",`display:none`)
     }else{
         slider_Horizontal.setAttribute("style",`width:${sc.getScrollSliderWidth()}%`)
     }

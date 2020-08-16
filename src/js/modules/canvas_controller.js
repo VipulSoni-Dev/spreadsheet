@@ -1,6 +1,6 @@
 import { ctx, pxRation, state } from "../views/elements";
 import { drawGrid } from '../views/canvasView'
-import { devicePR, npx, screenWidth, screenHeight,rowPerScreen,colPerScreen} from './utils'
+import { devicePR, npx, screenWidth, screenHeight, rowPerScreen, colPerScreen } from './utils'
 
 
 
@@ -18,6 +18,8 @@ export default class CanvasController {
     init() {
 
         //initializing state 
+        state.rowObj = this.sheet.row
+        state.colObj = this.sheet.col
         state.row = this.sheet.row.rows
         state.rowHeight = this.sheet.row.height
         state.col = this.sheet.col.cols
@@ -25,10 +27,13 @@ export default class CanvasController {
         // console.log(state.row,state.col);
 
         state.currentRow = 0
-        state.toRow = rowPerScreen()
         state.currentCol = 0
+        state.toRow = rowPerScreen()
+        state.rowPerScreen = state.toRow
         state.toCol = colPerScreen()
-
+        state.colPerScreen = state.toCol
+        
+        
         const deviceWidth = screenWidth()
         const deviceHeight = screenHeight()
 

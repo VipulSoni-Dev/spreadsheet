@@ -1,9 +1,13 @@
 // import Spreadsheet from '../modules/spreadsheet'
+
+import { ACTIVE_CELL_HEIGHT, ACTIVE_CELL_WIDTH } from "../modules/constants"
+
 //list of all DOM elements
 export const container = document.querySelector("#container")
 export const canvasDom = document.querySelector("#sheet_1")
 export const tableDom  = document.querySelector("#hidden_table")
 export const input = document.querySelector("#input")
+export const mainContainer = document.querySelector(".mainContainer")
 
 export const createNewDiv = document.createElement("div")
 
@@ -24,3 +28,13 @@ state.lastPerc = 0
 
 state.horizontalSlider = false
 state.hLastPerc = 0
+state.hMove = false
+
+//default highlighted cell position :
+state.activeCellWidth = ACTIVE_CELL_WIDTH
+state.activeCellHeight = ACTIVE_CELL_HEIGHT
+state.activeCellRow = 1
+state.activeCellCol = 1
+
+
+state.tmp = 0

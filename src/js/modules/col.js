@@ -1,3 +1,5 @@
+import { npx } from "./utils"
+
 export default class Col{
     constructor(cols,width=100){
         this.cols = cols
@@ -9,5 +11,8 @@ export default class Col{
     }
     getTotalWidth(){
         return this.cols * this.width
+    }
+    getX(col){
+        return (col* 21)-.5
     }
 }

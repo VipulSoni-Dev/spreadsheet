@@ -4,9 +4,11 @@ import ScrollController from './modules/scroll_controller'
 import sheet from './modules/sheet'
 import Spreadsheet from './modules/spreadsheet'
 // import { colPerScreen, rowPerScreen } from './modules/utils'
-import {state} from './views/elements'
-import { addScrollBar } from './views/scrollView'   
-import {screenWidth,screenHeight} from './modules/utils'
+import { state } from './views/elements'
+import { addScrollBar } from './views/scrollView'
+import { screenWidth, colPerScreen, rowPerScreen, scrollInit } from './modules/utils'
+import { addMaskViewToPage, removeMaskView } from './views/maskView'
+import { drawGridEnd } from './views/canvasView'
 
 
 // state.positionY = 4
@@ -15,127 +17,135 @@ import {screenWidth,screenHeight} from './modules/utils'
 
 //starting spreadsheet
 
-const workbook = new Spreadsheet("workbook",[new sheet("sheet1",100,26)])
+const workbook = new Spreadsheet("workbook", [new sheet("sheet1", 99, 26)])
 state.ctx = workbook.load(0)
 
 //adding scrollbars
 addScrollBar()
-
+addMaskViewToPage()
 //init events.........
 const sc = new ScrollController()
 //resize event listner
-window.addEventListener("resize",(e)=>{
-    
+window.addEventListener("resize", (e) => {
+    scrollInit()
     workbook.load(0)
     sc.updateScrollBarOnResize(screenWidth())
-  
+    removeMaskView()    
+    addMaskViewToPage()
+
+    // console.log(,devicePixelRatio);
+})
+
+//keyboard navigation
+window.addEventListener("keydown", (e) => {
+//default initializations
+
+ 
+
+
 })
 
 //scroll up callback
-window.scrollUp=(e)=>{
+window.scrollUp = (e) => {
 
-    if(e.type === "mousedown"){
+    if (e.type === "mousedown") {
         sc.handleScrollUpBtnClick(e)
-    }else{
+    } else {
         clearInterval(state.vScroller)
     }
 }
 
 //scroll down btn callback
-window.scrollDown=(e)=>{
-  
-    if(e.type === "mousedown"){
+window.scrollDown = (e) => {
+
+    if (e.type === "mousedown") {
         sc.handleScrollDownBtnClick(e)
-    }else{
+    } else {
         clearInterval(state.vScroller)
-    } 
+    }
 }
 
 //scroll right btn callback
-window.scrollRight=(e)=>{
-  
-    if(e.type === "mousedown"){
+window.scrollRight = (e) => {
+
+    if (e.type === "mousedown") {
         sc.handleScrollRightClick(e)
-    }else{
+    } else {
         clearInterval(state.hScroller)
-    } 
+    }
 }
 
 //scroll left btn callback
-window.scrollLeft=(e)=>{
-  
-    if(e.type === "mousedown"){
+window.scrollLeft = (e) => {
+
+    if (e.type === "mousedown") {
         sc.handleScrollLeftClick(e)
-    }else{
+    } else {
         clearInterval(state.hScroller)
-    } 
+    }
 }
 //scrolling by mouse wheel event.
-window.addEventListener("wheel",e=>{   
+window.addEventListener("wheel", e => {
 
     sc.handleOnWheelEvent(e)
 })
 
 
 //for scroll slidding
-document.addEventListener("mouseup",(e)=>{
+document.addEventListener("mouseup", (e) => {
     // if(e.target.className == "slider"){
-        if(state.verticalSlider){
-            state.lastPerc = state.percentage
-            sc.verticalSliderInActive()
-            state.verticalSlider = false
-        }
-        if(state.horizontalSlider){
-            state.hLastPerc = state.hPercentage
-            sc.horizontalSliderInActive()
-            state.horizontalSlider = false
-        }
+    if (state.verticalSlider) {
+        state.lastPerc = state.percentage
+        sc.verticalSliderInActive()
+        state.verticalSlider = false
+    }
+    if (state.horizontalSlider) {
+        state.hLastPerc = state.hPercentage
+        sc.horizontalSliderInActive()
+        state.horizontalSlider = false
+    }
 
 })
 
 
-document.addEventListener("mousemove",(e)=>{
-//    if(e.target.className == "slider"){
-    if(state.verticalSlider){
+document.addEventListener("mousemove", (e) => {
+    //    if(e.target.className == "slider"){
+    if (state.verticalSlider) {
         window.vScroll(e)
     }
-    if(state.horizontalSlider){
+    if (state.horizontalSlider) {
         window.hScroll(e)
     }
-   
+
 })
 
-window.vScroll=(e)=>
-{
-    if(e.type == "mousedown"){
-        
+window.vScroll = (e) => {
+    if (e.type == "mousedown") {
+
         state.initialClickMargin = e.clientY
-        state.verticalSlider = true 
+        state.verticalSlider = true
     }
-    else if(e.type == "mousemove")
-    {   
-        if(state.verticalSlider){
+    else if (e.type == "mousemove") {
+        if (state.verticalSlider) {
             sc.handleVerticalSliderMovement(e)
-        } 
-        
+        }
+
     }
- 
+
 }
 
-window.hScroll=(e)=>
-{
+window.hScroll = (e) => {
 
-    if(e.type == "mousedown"){
-        
+    if (e.type == "mousedown") {
+
         state.initialClickMargin_h = e.clientX
-        state.horizontalSlider = true 
+        state.horizontalSlider = true
     }
-    else if(e.type == "mousemove")
-    {   
-        if(state.horizontalSlider){
+    else if (e.type == "mousemove") {
+        if (state.horizontalSlider) {
             sc.handleHorizontalSliderMovement(e)
-        } 
-        
+        }
+
     }
- 
+
 }

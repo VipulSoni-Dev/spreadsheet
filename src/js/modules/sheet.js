@@ -2,6 +2,7 @@ import { npx } from "./utils"
 import { CELLHEIGHT, CELLWIDTH } from "./constants"
 import Col from "./col"
 import Row from "./row"
+import { state } from "../views/elements"
 
 export default class sheet{
     constructor(name , row , col)
@@ -10,6 +11,7 @@ export default class sheet{
         this.row = new Row(row,npx(CELLHEIGHT))
         this.col = new Col(col,npx(CELLWIDTH))
         this.data = []
+
     }
 
 

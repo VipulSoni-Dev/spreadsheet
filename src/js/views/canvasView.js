@@ -1,4 +1,4 @@
-import { state, ctx } from './elements'
+import { state, ctx, screenHeight } from './elements'
 import {
     BLACK, GRID_HEADER_COLOR, HEADER_TEXT_COLOR, yOffset,xOffset,GRID_HEADER_LINE_COLOR,
     GRID_fONTS, GRID_LINE_COLOR, GRID_LINE_WIDTH, CELLHEIGHT, CELLWIDTH, MAXLEN, PAD_FIRST_COLUMN
@@ -79,7 +79,7 @@ const renderGridRow=(start,end,col,xOff = xOffset,yOff = yOffset,isHeader=false)
             if(row == 0){
 
             }else{
-                renderGrid(0,ny,TotalRowLen,ny, GRID_LINE_WIDTH, GRID_LINE_COLOR, xOff,yOff)
+                 renderGrid(0,ny,TotalRowLen,ny, GRID_LINE_WIDTH, GRID_LINE_COLOR, xOff,yOff)
             }
          
         }
@@ -90,8 +90,7 @@ const renderGridCol =(start,end,row,xOff = xOffset,yOff = yOffset,isHeader=false
     const totalColLen = row * CELLHEIGHT
 
     for (let col = 0; col <= (end-start); col++) {
-           
-        const nx =CELLWIDTH * col
+        const nx = CELLWIDTH * col
         
         if(isHeader){
             // Col:fill rectangle with color and draw line for headers
@@ -115,8 +114,11 @@ const renderGridCol =(start,end,row,xOff = xOffset,yOff = yOffset,isHeader=false
             
         }
         
+
+        
     }
 }
+
 
 export const drawGrid = () => {
     
@@ -125,16 +127,38 @@ export const drawGrid = () => {
         // **remember always end digit of row or col should be added by 1
 
         // console.log(state.currentRow,state.toRow,state.currentCol,state.toCol);
-         renderHeader(state.currentRow,state.toRow,state.currentCol,state.toCol)
+        renderHeader(state.currentRow,state.toRow,state.currentCol,state.toCol)
 
         //rendering row and cols
-        renderGridRow(state.currentRow,state.toRow,state.toCol,xOffset,yOffset)
-        renderGridCol(state.currentCol,state.toCol,state.toRow,xOffset,yOffset) 
-        
-        
-
+        renderGridRow(state.currentRow,state.toRow,state.colPerScreen,xOffset,yOffset)
+        renderGridCol(state.currentCol,state.toCol,state.rowPerScreen,xOffset,yOffset) 
+            
+    //    console.log(state.end);
     restore()
+
 }
+
+// export const drawGridEnd = () =>{
+//     console.log("called");
+//     save()
+//          ctx.fillRect(0,(rowPerScreen()-2)*CELLHEIGHT,colPerScreen()*CELLWIDTH+50,CELLHEIGHT*3)
+//         // **remember always end digit of row or col should be added by 1
+
+//         // console.log(state.currentRow,state.toRow,state.currentCol,state.toCol);
+//         renderHeader(state.currentRow+2,state.toRow+2,state.currentCol+2,state.toCol+2)
+
+//         // rendering row and cols
+//         renderGridRow(state.currentRow+2,state.toRow+2,state.toCol+2,xOffset,yOffset)
+//         renderGridCol(state.currentCol+2,state.toCol+2,state.toRow+2,xOffset,yOffset) 
+ 
+//         ctx.fillStyle ="gray"
+//         console.log();
+      
+//     // restore()    
+
+   
+
+// }
 
 
 

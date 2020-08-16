@@ -34,6 +34,16 @@ body {
 } */
 .nav-up{
     position: absolute;
+    bottom: 34px;
+    right: 0px;
+    width: 15px;
+    height: 18px;
+    background: url(./assets/sprite.svg) -120px -56px no-repeat;
+    border-bottom: 1px solid #dadce0;
+    border-left: 1px solid #dadce0;
+    border-right: 1px solid #dadce0;
+    background-color: #f8f8f8;
+    /* position: absolute;
     bottom: 35px;
     right: 0px;
     width: 15px;
@@ -42,10 +52,23 @@ body {
     border-bottom:1px solid #dadce0;
     border-left:1px solid #dadce0;
     border-right:1px solid #dadce0;
-    background-color: #f8f8f8 ;
+    background-color: #f8f8f8 ; */
 }
 .nav-down{
+ 
     position: absolute;
+    right: 0px;
+    bottom: 16px;
+    width: 15px;
+    height: 17px;
+    z-index: 5;
+    background: url(./assets/sprite.svg#) -128px -18px no-repeat;
+    border-bottom: 1px solid #dadce0;
+    border-left: 1px solid #dadce0;
+    border-right: 1px solid #dadce0;
+    background-color: #f8f8f8;
+ 
+    /* position: absolute;
     right: 0px;
     bottom: 17px;
     width: 15px;
@@ -55,7 +78,7 @@ body {
     border-bottom:1px solid #dadce0;
     border-left:1px solid #dadce0;
     border-right:1px solid #dadce0;
-    background-color: #f8f8f8;
+    background-color: #f8f8f8; */
 }
 
 .nav-up:hover{
@@ -68,7 +91,7 @@ body {
     position: absolute;
     left: 0%;
     /* top:-1px; */
-    bottom: 1px;
+    bottom: 0px;
     right:0px;
     width: 100%;
     height: 15px;
@@ -78,7 +101,7 @@ body {
 .slider-horizontal{
     position: absolute;
     /* top:21px; */
-    bottom: 3px;
+    bottom: 2px;
     /* left:8%; */
     width: 20%;
     height: 10px;
@@ -94,7 +117,7 @@ body {
     } */
 .nav-right-horizontal{
     position: absolute;
-    bottom: 1px;
+    bottom: 0px;
     right: 17px;
     width: 18px;
     height: 15px;
@@ -112,7 +135,7 @@ body {
 }
 .nav-left-horizontal{
     position: absolute;
-    bottom: 1px;
+    bottom: 0px;
     right: 35px;
     width: 18px;
     height: 15px;
@@ -137,12 +160,40 @@ body {
     /* height: 5px; */
     color: #989898;
 }
-.scroll_black_spot{
+.scroll_spot{
     position: absolute;
     background-color: #fff;
-    height: 17px;
+    height: 15px;
     width: 15px;
-    bottom: 1px;
+    bottom: 0px;
     right: 0px;
     border: 1px solid #dadce0;
+}
+.highlightedCell{
+    width: 7.0%;
+    height: 4.4%;
+    position: absolute;
+    left: 50px;
+    top: 21px;
+    z-index: 1;
+    border-block-end: 2px solid rgba(26, 115, 232, 0.74);
+    border-inline-end: 2px solid rgba(26, 115, 232, 0.74);
+    border-inline-start: 2px solid rgba(26, 115, 232, 0.74);
+    border-block-start: 2px solid rgba(26, 115, 232, 0.74);
+}       
+.corner-dot{
+    position: absolute;
+    cursor: crosshair;
+    width: 5px;
+    height: 5px;
+    z-index: 1;
+    background-color: #1a73e8;
+    right: -5%;
+    bottom: -27%;
+    border: 1px solid #fff;
+}
+.toolbar{
+    height: 21px;
+    width: 100%;
+    border: 1px solid #bcbcbc;
 }

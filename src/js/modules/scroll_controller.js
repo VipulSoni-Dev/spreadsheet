@@ -1,7 +1,7 @@
 import { state } from "../views/elements";
 import { addScrollBar, removeScrollBar } from "../views/scrollView";
-import { SCROLL_Y_OFFSET, SCROLL_X_OFFSET, SCROLL_Y_SPEED, SCROLL_X_SPEED, SLIDER_SPEED_OFFSET } from './constants'
-import { colPerScreen, getRowPercentage, screenHeight, screenWidth, getColPercentage, rowPerScreen, getSlidePercentage, maxScroll } from "./utils";
+import { SCROLL_Y_OFFSET, SCROLL_X_OFFSET, SCROLL_Y_SPEED, SCROLL_X_SPEED, SLIDER_SPEED_OFFSET, CELLWIDTH } from './constants'
+import { colPerScreen, getRowPercentage, screenHeight, screenWidth, getColPercentage, rowPerScreen, getSlidePercentage, maxScroll, npx } from "./utils";
 
 export default class ScrollController {
     constructor() {
@@ -9,10 +9,10 @@ export default class ScrollController {
     }
 
     getScrollSliderHeight() {
-        return Math.round(rowPerScreen() * 100 / state.row)
+        return (rowPerScreen() * 100 / state.row)
     }
     getScrollSliderWidth() {
-        return Math.round(colPerScreen() * 100 / state.col)
+        return (colPerScreen() * 100 / state.col)
     }
     moveScrollBar() {
 
@@ -22,24 +22,25 @@ export default class ScrollController {
         //stores percentages current(state.percentage) and last(state.lastperc)
         state.percentage = getRowPercentage()
         state.lastPerc = state.percentage
-       
-        if(state.hScroller || state.hMove){
-            state.hPercentage = getColPercentage()
-            state.hLastPerc = state.hPercentage
+        state.hPercentage = getColPercentage()
+        state.hLastPerc = state.hPercentage
+
+
+        slider.style.top = state.percentage + "%"
+       if(state.hMove) 
+       {
+            sliderHorizontal.style.left = state.hPercentage + "%"
             state.hMove = false
-        }
+       }
 
-
-        slider.style.top = state.percentage + "%"   
-        sliderHorizontal.style.left = state.hPercentage + "%"
 
     }
 
     getScrollCaseHeight() {
-        return screenHeight() - SCROLL_Y_OFFSET //56 is Yoffset for scrollBar 
+        return screenHeight() - SCROLL_Y_OFFSET+1 //error correction of 1px  
     }
     getScrollCaseWidth() {
-        return screenWidth() - SCROLL_X_OFFSET //56 is Yoffset for scrollBar 
+        return screenWidth() - SCROLL_X_OFFSET-1 //error correction of 1px  
     }
     updateScrollBarOnResize() {
         removeScrollBar()
@@ -61,7 +62,7 @@ export default class ScrollController {
                 }
             }
         } else {
-            state.hMove =true
+            state.hMove = true
             //shift + wheel event
             if (e.deltaY > 0) {
                 if (state.toCol < state.col) {
@@ -108,8 +109,10 @@ export default class ScrollController {
     }
 
     handleScrollRightClick(e) {
-
+        state.hMove = true
         state.hScroller = setInterval(() => {
+            state.hMove = true
+            //    console.log(state.toCol,state.col);
             if (state.toCol < state.col) {
                 state.currentCol += 1
                 state.toCol += 1
@@ -122,6 +125,7 @@ export default class ScrollController {
     handleScrollLeftClick(e) {
 
         state.hScroller = setInterval(() => {
+            state.hMove = true
             if (state.currentCol != 0) {
                 state.currentCol -= 1
                 state.toCol -= 1
@@ -133,7 +137,7 @@ export default class ScrollController {
 
     handleVerticalSliderMovement(e) {
         state.vCurrentY = e.clientY
-        this.verticalSliderMovement()
+        this.verticalSliderMovement(e)
         this.verticalSliderActive()
         state.ctx.drawCanvas()
     }
@@ -168,42 +172,51 @@ export default class ScrollController {
         const slider = document.querySelector('.slider')
         // const sliderHorizontal = document.querySelector(".slider-horizontal")
 
-        state.percentage = parseInt(((state.vCurrentY - state.initialClickMargin) * 100) / screenHeight())
+        state.percentage = parseInt(((state.vCurrentY - state.initialClickMargin) * 100) / (screenHeight()-SCROLL_X_OFFSET))
         state.percentage += state.lastPerc
-        // console.log(percentage,state.perc);
+    
         const max = 100 - this.getScrollSliderHeight()
+
+        //stoping conditions
         if (state.percentage <= 0) {
             state.percentage = 0
         } else if (state.percentage >= max) {
             state.percentage = max
         }
 
-
-        state.currentRow = Math.ceil((state.percentage * state.row) / 100)
-        state.toRow = state.currentRow + rowPerScreen()
-        slider.style.top = state.percentage + "%"
-
+        //finding current row by
+        //how many percentage 
+        //slider moved
+        state.currentRow = Math.floor((state.percentage * state.row) / 100)
+        state.toRow = state.currentRow + state.rowPerScreen
+        slider.style.top = state.percentage + "%" //getRowPercentage() + "%" 
+       
     }
 
     horizontalSliderMovement() {
-        // const slider = document.querySelector('.slider')
+
         const sliderHorizontal = document.querySelector(".slider-horizontal")
 
-        state.hPercentage = parseInt(((state.hCurrentX - state.initialClickMargin_h) * 100) / screenWidth())
+        state.hPercentage = parseInt(((state.hCurrentX - state.initialClickMargin_h) * 100) / (screenWidth()-SCROLL_X_OFFSET))
         state.hPercentage += state.hLastPerc
 
         const max = 100 - this.getScrollSliderWidth()
+
+        
+        //stoping conditions
         if (state.hPercentage <= 0) {
             state.hPercentage = 0
         } else if (state.hPercentage >= max) {
             state.hPercentage = max
         }
+     
+        //finding current row by
+        //how many percentage 
+        //slider moved
+        state.currentCol = Math.floor((state.hPercentage * state.col) / 100)
+        state.toCol = state.currentCol + state.colPerScreen
+        sliderHorizontal.style.left =state.hPercentage + "%" 
 
-        state.currentCol = Math.ceil((state.hPercentage * state.toCol) / 100)
-        state.toCol = state.currentCol + colPerScreen()
-
-        sliderHorizontal.style.left = state.hPercentage + "%"   //utile.getRowPercentage() will give current slider(vertical) position 
-            
     }
 
 

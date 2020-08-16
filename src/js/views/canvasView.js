@@ -1,7 +1,8 @@
 import { state, ctx, screenHeight } from './elements'
 import {
     BLACK, GRID_HEADER_COLOR, HEADER_TEXT_COLOR, yOffset,xOffset,GRID_HEADER_LINE_COLOR,
-    GRID_fONTS, GRID_LINE_COLOR, GRID_LINE_WIDTH, CELLHEIGHT, CELLWIDTH, MAXLEN, PAD_FIRST_COLUMN
+    GRID_fONTS, GRID_LINE_COLOR, GRID_LINE_WIDTH, CELLHEIGHT, CELLWIDTH, MAXLEN, PAD_FIRST_COLUMN,
+    GRID_SELECTED_HEADER_COLOR
 } from '../modules/constants'
 import { colPerScreen, npxLine,npx, numToAlph, rowPerScreen } from '../modules/utils'
 
@@ -69,8 +70,12 @@ const renderGridRow=(start,end,col,xOff = xOffset,yOff = yOffset,isHeader=false)
                 //dynamic padding calculation                
                 let Row = row.toString().length
                 const padding =(xOffset/2) - (PAD_FIRST_COLUMN*(row+start).toString().length)
-               
-                fillRect(0,ny,xOffset-.5,CELLHEIGHT,0,0,GRID_HEADER_COLOR)    
+               if(row == state.activeCellRow){
+                    fillRect(0,ny,xOffset-.5,CELLHEIGHT,0,0,GRID_SELECTED_HEADER_COLOR)
+               }else{
+                    fillRect(0,ny,xOffset-.5,CELLHEIGHT,0,0,GRID_HEADER_COLOR)
+               }
+                    
                 fillText(row+start,padding,(ny+CELLHEIGHT/1.5),140,HEADER_TEXT_COLOR)        
                 renderGrid(0,ny,xOffset,ny, GRID_LINE_WIDTH, GRID_HEADER_LINE_COLOR, xOff,yOff)
             }
@@ -98,8 +103,13 @@ const renderGridCol =(start,end,row,xOff = xOffset,yOff = yOffset,isHeader=false
                 fillRect(nx,0,xOffset-.5,CELLHEIGHT,0,0,GRID_HEADER_COLOR)
                 renderGrid(nx,0,nx,totalColLen+yOffset, GRID_LINE_WIDTH,GRID_HEADER_LINE_COLOR,xOff,yOff)
             }else{
-                
-                fillRect(nx-(CELLWIDTH-xOffset),0,CELLWIDTH,CELLHEIGHT,0,0,GRID_HEADER_COLOR) 
+               
+                if(col == state.activeCellCol){
+                    fillRect(nx-(CELLWIDTH-xOffset),0,CELLWIDTH,CELLHEIGHT,0,0,GRID_SELECTED_HEADER_COLOR)
+                }else{
+                    fillRect(nx-(CELLWIDTH-xOffset),0,CELLWIDTH,CELLHEIGHT,0,0,GRID_HEADER_COLOR)
+                }
+                // fillRect(nx-(CELLWIDTH-xOffset),0,CELLWIDTH,CELLHEIGHT,0,0,GRID_HEADER_COLOR) 
                 fillText(numToAlph(col+start-1),nx-(CELLWIDTH-xOffset)/15,CELLHEIGHT/1.5,MAXLEN,HEADER_TEXT_COLOR)
                 renderGrid(nx,0,nx,CELLHEIGHT, GRID_LINE_WIDTH,GRID_HEADER_LINE_COLOR,xOff,yOff)
             }

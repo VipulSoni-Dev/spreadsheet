@@ -8,7 +8,7 @@ export const canvasDom = document.querySelector("#sheet_1")
 export const tableDom  = document.querySelector("#hidden_table")
 export const input = document.querySelector("#input")
 export const mainContainer = document.querySelector(".mainContainer")
-
+export const loading = document.querySelector(".loading")
 export const createNewDiv = document.createElement("div")
 
 export const screenWidth = document.documentElement.clientWidth
@@ -33,7 +33,7 @@ state.hMove = false
 //default highlighted cell position :
 state.activeCellWidth = ACTIVE_CELL_WIDTH
 state.activeCellHeight = ACTIVE_CELL_HEIGHT
-state.activeCellRow = 9
+state.activeCellRow = 1
 state.activeCellCol = 1
 
 

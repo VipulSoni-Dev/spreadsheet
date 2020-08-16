@@ -3,6 +3,7 @@ import Row from './row'
 //color constants
 const BLACK ="#000"
 const GRID_HEADER_COLOR =  "#f8f9fa"
+const GRID_SELECTED_HEADER_COLOR =  "#e8eaed"   //"#bcbcbc"
 const GRID_HEADER_LINE_COLOR ="#bcbcbc"
 const HEADER_TEXT_COLOR = "#5f6368"
 const GRID_fONTS = " Roboto Hevletica Arial"
@@ -43,5 +44,5 @@ export  {
         GRID_fONTS,GRID_LINE_COLOR,GRID_LINE_WIDTH,
         yOffset,xOffset,CELLWIDTH,CELLHEIGHT,SCROLL_X_OFFSET,
         SCROLL_X_SPEED,SLIDER_SPEED_OFFSET,
-        ACTIVE_CELL_HEIGHT,ACTIVE_CELL_WIDTH,
+        ACTIVE_CELL_HEIGHT,ACTIVE_CELL_WIDTH,GRID_SELECTED_HEADER_COLOR,
     }

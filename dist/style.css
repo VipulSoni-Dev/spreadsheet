@@ -3,6 +3,14 @@ body {
     margin: 0;
     padding: 0;
     overflow: hidden;
+    font-family: Roboto,RobotoDraft,Helvetica,Arial,sans-serif;
+    font-size: 14px;
+}
+.loading{
+    display: block;
+}
+.mainContainer{
+    display: none;
 }
 
 .myscrollBar{

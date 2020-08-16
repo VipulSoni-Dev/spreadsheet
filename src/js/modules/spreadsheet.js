@@ -1,3 +1,4 @@
+import { loading, mainContainer } from "../views/elements"
 import CanvasController from "./canvas_controller"
 
 export default class Spreadsheet{
@@ -9,7 +10,9 @@ export default class Spreadsheet{
         }
 
         load(sheetIndex){
-    
+            loading.style.display = "none"
+            mainContainer.style.display = "block"
+
             const canvas = new  CanvasController(this.sheets[sheetIndex])
             canvas.init()
             canvas.drawCanvas()

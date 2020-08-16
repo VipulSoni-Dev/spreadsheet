@@ -1,4 +1,5 @@
 import { state } from "../views/elements";
+import { updateMaskView } from "../views/maskView";
 import { addScrollBar, removeScrollBar } from "../views/scrollView";
 import { SCROLL_Y_OFFSET, SCROLL_X_OFFSET, SCROLL_Y_SPEED, SCROLL_X_SPEED, SLIDER_SPEED_OFFSET, CELLWIDTH } from './constants'
 import { colPerScreen, getRowPercentage, screenHeight, screenWidth, getColPercentage, rowPerScreen, getSlidePercentage, maxScroll, npx } from "./utils";
@@ -32,7 +33,7 @@ export default class ScrollController {
             sliderHorizontal.style.left = state.hPercentage + "%"
             state.hMove = false
        }
-
+       
 
     }
 
@@ -50,15 +51,18 @@ export default class ScrollController {
         if (!e.shiftKey) {
             //wheel event
             if (e.deltaY > 0) {
+
                 if (state.toRow < state.row) {
                     state.currentRow += 1
                     state.toRow += 1
+                    state.activeCellRow -=1
                 }
             }
             else {
                 if (state.currentRow != 0) {
                     state.currentRow -= 1
                     state.toRow -= 1
+                    state.activeCellRow +=1
                 }
             }
         } else {
@@ -68,16 +72,19 @@ export default class ScrollController {
                 if (state.toCol < state.col) {
                     state.currentCol += 1
                     state.toCol += 1
+                    state.activeCellCol -=1
                 }
             }
             else {
                 if (state.currentCol != 0) {
                     state.currentCol -= 1
                     state.toCol -= 1
+                    state.activeCellCol +=1
                 }
             }
         }
         this.moveScrollBar()
+        updateMaskView()
         state.ctx.drawCanvas()
 
     }
@@ -88,8 +95,11 @@ export default class ScrollController {
             if (state.toRow < state.row) {
                 state.currentRow += 1
                 state.toRow += 1
+                state.activeCellRow -=1
             }
+            
             this.moveScrollBar()
+            updateMaskView()
             state.ctx.drawCanvas()
 
         }, SCROLL_Y_SPEED);
@@ -101,8 +111,11 @@ export default class ScrollController {
             if (state.currentRow != 0) {
                 state.currentRow -= 1
                 state.toRow -= 1
+                state.activeCellRow +=1
             }
+            
             this.moveScrollBar()
+            updateMaskView()
             state.ctx.drawCanvas()
 
         }, SCROLL_Y_SPEED);
@@ -116,8 +129,13 @@ export default class ScrollController {
             if (state.toCol < state.col) {
                 state.currentCol += 1
                 state.toCol += 1
+                state.activeCellCol -=1
             }
+            // if(state.activeCellCol != 0){
+            //     state.activeCellCol -= 1
+            // }
             this.moveScrollBar()
+            updateMaskView()
             state.ctx.drawCanvas()
         }, SCROLL_X_SPEED);
     }
@@ -129,8 +147,12 @@ export default class ScrollController {
             if (state.currentCol != 0) {
                 state.currentCol -= 1
                 state.toCol -= 1
+                state.activeCellCol +=1
+                
             }
+
             this.moveScrollBar()
+            updateMaskView()
             state.ctx.drawCanvas()
         }, SCROLL_X_SPEED);
     }
@@ -187,9 +209,15 @@ export default class ScrollController {
         //finding current row by
         //how many percentage 
         //slider moved
+        // state.activeCellRow +=(state.toRow-(state.currentRow-state.rowPerScreen))
+       
+        state.prevRow = state.currentRow
         state.currentRow = Math.ceil((state.percentage * state.row) / 100)
+        state.activeCellRow -= (state.currentRow - state.prevRow);
         state.toRow = state.currentRow + state.rowPerScreen
         slider.style.top = state.percentage + "%" //getRowPercentage() + "%" 
+       
+        updateMaskView()
        
     }
 
@@ -213,10 +241,12 @@ export default class ScrollController {
         //finding current row by
         //how many percentage 
         //slider moved
+        state.prevCol = state.currentCol
         state.currentCol = Math.ceil((state.hPercentage * state.col) / 100)
+        state.activeCellCol -= (state.currentCol-state.prevCol)
         state.toCol = state.currentCol + state.colPerScreen
         sliderHorizontal.style.left =state.hPercentage + "%" 
-
+        updateMaskView()
     }
 
 

@@ -11,7 +11,7 @@ const createMaskDiv=()=>{
     mainContainer.insertAdjacentElement("beforeend",maskContainer)
 }
 
-const createHighlightedCellDiv=(endRow,endCol)=>{
+const createHighlightedCellDiv=()=>{
     
     const highlightedCell = createNewDiv.cloneNode()
     highlightedCell.className = "highlightedCell"
@@ -34,10 +34,9 @@ const createHighlightedCellDiv=(endRow,endCol)=>{
 }
 
 
-export const addMaskViewToPage=(endRow=false,endCol=false)=>{
+export const addMaskViewToPage=()=>{
     createMaskDiv()
-
-    createHighlightedCellDiv(endRow,endCol)
+    createHighlightedCellDiv()
     
     
 }
@@ -45,4 +44,20 @@ export const addMaskViewToPage=(endRow=false,endCol=false)=>{
 
 export const removeMaskView=()=>{
     document.querySelector(".maskContainer").remove()
+}
+
+export const updateMaskView=()=>{
+    // console.log(state.activeCellRow);
+    if(state.activeCellCol <=0 || state.activeCellCol > state.colPerScreen){
+        document.querySelector(".maskContainer").style.display = "none"
+       
+    }else if(state.activeCellRow <=0 || state.activeCellRow > state.rowPerScreen){
+        document.querySelector(".maskContainer").style.display = "none"
+    }else{
+       
+        document.querySelector(".maskContainer").style.display = "block"
+        removeMaskView()
+        addMaskViewToPage()
+    }
+    
 }

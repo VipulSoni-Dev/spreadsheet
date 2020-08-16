@@ -4,10 +4,10 @@ import ScrollController from './modules/scroll_controller'
 import sheet from './modules/sheet'
 import Spreadsheet from './modules/spreadsheet'
 // import { colPerScreen, rowPerScreen } from './modules/utils'
-import { state } from './views/elements'
+import { ctx, state } from './views/elements'
 import { addScrollBar } from './views/scrollView'
 import { screenWidth, colPerScreen, rowPerScreen, scrollInit } from './modules/utils'
-import { addMaskViewToPage, removeMaskView } from './views/maskView'
+import { addMaskViewToPage, removeMaskView, updateMaskView } from './views/maskView'
 // import { drawGridEnd } from './views/canvasView'
 
 
@@ -33,16 +33,50 @@ window.addEventListener("resize", (e) => {
     removeMaskView()
     addMaskViewToPage()
 
-    // console.log(,devicePixelRatio);
 })
 
 //keyboard navigation
 window.addEventListener("keydown", (e) => {
     //default initializations
-    
+    if(e.key == "ArrowDown"){
+        if(state.activeCellRow < state.rowPerScreen)
+        {
+            state.activeCellRow +=1
+        }else if(state.toRow < state.row){
+            state.currentRow += 1
+            state.toRow += 1
+        }
+       
+    }else if(e.key == "ArrowUp"){
+        if(state.activeCellRow != 1){
+            state.activeCellRow -=1
+        }else if(state.currentRow != 0){
+            state.currentRow -=1
+            state.toRow -=1
+        }
+    }else if(e.key == "ArrowRight"){
+        state.hMove = true
+        if(state.activeCellCol<state.colPerScreen){
+            state.activeCellCol +=1
+        }else if(state.toCol<state.col){
+            state.currentCol += 1
+            state.toCol += 1
+        }
+    }else if(e.key == "ArrowLeft"){
+        state.hMove = true
+        if(state.activeCellCol != 1){
+            state.activeCellCol -= 1
+        }else if(state.currentCol != 0){
+            state.currentCol -= 1
+            state.toCol -= 1
+        }
+    }
 
 
-
+    removeMaskView()
+    addMaskViewToPage()
+    sc.moveScrollBar()
+    state.ctx.drawCanvas()
 })
 
 //scroll up callback

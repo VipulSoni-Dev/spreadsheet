@@ -40,7 +40,7 @@ export const colPerScreen = () => {
   if (devicePixelRatio % 2 == 0) {
     Cols = (screenWidth() - npx(50)) / npx(CELLWIDTH)
   } else {
-    Cols = (screenWidth() - npx(100)) / npx(CELLWIDTH)
+    Cols = (screenWidth() - npx(150)) / npx(CELLWIDTH)
   }
 
 
@@ -89,6 +89,8 @@ export const numToAlph = (num) => {
 }
 
 export const scrollInit = () => {
+  state.activeCellCol = 1
+  state.activeCellRow = 1
   state.hPercentage = 0
   state.percentage = 0
   state.initialClickMargin = 0

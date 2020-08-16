@@ -33,7 +33,7 @@ state.hMove = false
 //default highlighted cell position :
 state.activeCellWidth = ACTIVE_CELL_WIDTH
 state.activeCellHeight = ACTIVE_CELL_HEIGHT
-state.activeCellRow = 1
+state.activeCellRow = 9
 state.activeCellCol = 1
 
 

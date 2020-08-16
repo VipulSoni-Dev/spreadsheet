@@ -1,3 +1,4 @@
+import { CELLHEIGHT, CELLWIDTH, xOffset, yOffset } from "./constants"
 import { npx } from "./utils"
 
 export default class Col{
@@ -13,6 +14,11 @@ export default class Col{
         return this.cols * this.width
     }
     getX(col){
-        return (col* 21)-.5
+        if(devicePixelRatio%2 == 0){
+            return npx(col*CELLWIDTH)-npx(xOffset+.5)
+        }else{
+            return npx(col*CELLWIDTH)-npx(xOffset+1)
+        }
+        
     }
 }

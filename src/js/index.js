@@ -8,7 +8,7 @@ import { state } from './views/elements'
 import { addScrollBar } from './views/scrollView'
 import { screenWidth, colPerScreen, rowPerScreen, scrollInit } from './modules/utils'
 import { addMaskViewToPage, removeMaskView } from './views/maskView'
-import { drawGridEnd } from './views/canvasView'
+// import { drawGridEnd } from './views/canvasView'
 
 
 // state.positionY = 4
@@ -17,7 +17,7 @@ import { drawGridEnd } from './views/canvasView'
 
 //starting spreadsheet
 
-const workbook = new Spreadsheet("workbook", [new sheet("sheet1", 100, 26)])
+const workbook = new Spreadsheet("workbook", [new sheet("sheet1", 99, 26)])
 state.ctx = workbook.load(0)
 
 //adding scrollbars
@@ -30,7 +30,7 @@ window.addEventListener("resize", (e) => {
     scrollInit()
     workbook.load(0)
     sc.updateScrollBarOnResize(screenWidth())
-    removeMaskView()    
+    removeMaskView()
     addMaskViewToPage()
 
     // console.log(,devicePixelRatio);
@@ -38,9 +38,9 @@ window.addEventListener("resize", (e) => {
 
 //keyboard navigation
 window.addEventListener("keydown", (e) => {
-//default initializations
+    //default initializations
+    
 
- 
 
 
 })

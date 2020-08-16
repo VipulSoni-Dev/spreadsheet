@@ -1,3 +1,4 @@
+import { CELLHEIGHT, CELLWIDTH, xOffset, yOffset } from "./constants"
 import { npx } from "./utils"
 
 export default class Row{
@@ -7,7 +8,10 @@ export default class Row{
     }
 
     getY(row){
-        return (row*100)-50.5
+        
+
+            return npx(row * CELLHEIGHT)+21
+        
     }
 
 

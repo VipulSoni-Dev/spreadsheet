@@ -33,8 +33,8 @@ const MAXLEN =140
 const PAD_FIRST_COLUMN = 3.5 
 
 //active cell height & widht
-const ACTIVE_CELL_HEIGHT = 19.5
-const ACTIVE_CELL_WIDTH = 98.5
+const ACTIVE_CELL_HEIGHT = 20
+const ACTIVE_CELL_WIDTH = 99
 
 export  {
         SCROLL_Y_SPEED,MAXLEN,PAD_FIRST_COLUMN,

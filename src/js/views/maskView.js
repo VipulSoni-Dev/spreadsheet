@@ -19,8 +19,8 @@ const createHighlightedCellDiv=(endRow,endCol)=>{
     highlightedCell.style = `width: ${npx(state.activeCellWidth)}px;
                              height: ${npx(state.activeCellHeight)}px;
                              position: absolute;
-                             left: ${npx(state.rowObj.getY(state.activeCellCol))}px;
-                             top: ${npx(state.colObj.getX(state.activeCellRow))}px;`
+                             left: ${(state.colObj.getX(state.activeCellCol))}px;
+                             top: ${state.rowObj.getY(state.activeCellRow)}px;`
  
     const corener_dot = createNewDiv.cloneNode()
     corener_dot.className = "corner-dot"
